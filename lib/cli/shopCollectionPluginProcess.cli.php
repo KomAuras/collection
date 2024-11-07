@@ -2,6 +2,7 @@
 
 class shopCollectionPluginProcessCli extends waCliController
 {
+    const FILE_LOG = 'shop/plugins/collection/collection.cli.log';
     protected $collection_feature_id;
     protected $parent_category_id;
     private $provider_feature_id;
@@ -15,7 +16,7 @@ class shopCollectionPluginProcessCli extends waCliController
         $this->parent_category_id = $settings['parent_category_id'];
 
         if ($this->collection_feature_id == 0 || $this->provider_feature_id == 0 || $this->parent_category_id == 0) {
-            waLog::log('Настройте плагин', 'shop/collection.cli.log');
+            waLog::log('Настройте плагин', $this::FILE_LOG);
             return;
         }
 
@@ -44,7 +45,7 @@ class shopCollectionPluginProcessCli extends waCliController
             $model->add($products, $this->parent_category_id);
 
             $qty = count($data);
-            waLog::log("Добавили товаров: {$qty}", 'shop/collection.cli.log');
+            waLog::log("Добавили товаров: {$qty}", $this::FILE_LOG);
         }
     }
 }
