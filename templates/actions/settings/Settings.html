@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="robots" content="noindex, nofollow"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<h1>Коллекции товара</h1>
+
+<form action="?plugin=collection&module=settings&action=save" method="post" id="plugins-settings-form"
+      class="fields form">
+    {$wa->csrf()}
+
+    <h2>[`Settings`]</h2>
+
+    <div class="field">
+        <div class="name">ID характеристки Поставщик</div>
+        <div class="value">
+            <input type="text" name="settings[provider_feature_id]"
+                   value="{$settings.provider_feature_id|escape}"/><br/><br/>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="name">ID характеристки Коллекция</div>
+        <div class="value">
+            <input type="text" name="settings[collection_feature_id]"
+                   value="{$settings.collection_feature_id|escape}"/><br/><br/>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="name">ID основной (родительской) категории коллекций</div>
+        <div class="value">
+            <input type="text" name="settings[parent_category_id]"
+                   value="{$settings.parent_category_id|escape}"/><br/><br/>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="clear"></div>
+
+        <div class="value submit">
+            <input type="submit" class="button green" value="[`Save`]">
+            <span id="plugins-settings-form-status" style="display:none"><i style="vertical-align:middle"
+                                                                            class="icon16 yes"></i> [`Saved`] </span>
+        </div>
+    </div>
+
+    <hr>
+    <div>
+        <h2>Информация</h2>
+        <p>Назначьте данную команду в CRON для автоматической обработки новой номенклатуры<br>
+            (новую номенклатуру с коллекцией нужно добавлять в ROOT папку всех автотматических фильров коллекций)</p>
+
+        <p>
+    <textarea rows="3" cols="100">
+&nbsp;
+{$cron}
+	</textarea>
+        </p>
+
+        <p>Следующий код нужно вставить в страницу в точку вывода значения характеристики
+            <b>{literal}{$f_value}{/literal}</b></p>
+
+        <p>
+    <textarea rows="9" cols="100">
+&nbsp;
+<!-- Вставьте код здесь -->
+{literal}{if class_exists('shopCollectionPlugin')}
+    {shopCollectionPlugin::show({$product.id},{$f_code},{$f_value})}
+{else}
+    {$f_value}
+{/if}{/literal}
+<!-- Вставьте код здесь -->
+	</textarea>
+        </p>
+    </div>
+
+</form>
+</body>
+</html>
