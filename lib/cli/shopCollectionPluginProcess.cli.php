@@ -9,6 +9,8 @@ class shopCollectionPluginProcessCli extends waCliController
 
     public function execute()
     {
+        waLog::log('Запуск обработки', $this::FILE_LOG);
+
         $settings = wa('shop')->getPlugin('collection')->getSettings();
 
         $this->collection_feature_id = $settings['collection_feature_id'];
@@ -23,7 +25,7 @@ class shopCollectionPluginProcessCli extends waCliController
         $model = new waModel();
         $result = $model->query("
             SELECT DISTINCT
-                p.id 
+                p.id
             FROM
                 shop_product p
                 JOIN shop_product_features pf_k ON pf_k.product_id = p.id
@@ -47,5 +49,6 @@ class shopCollectionPluginProcessCli extends waCliController
             $qty = count($data);
             waLog::log("Добавили товаров: {$qty}", $this::FILE_LOG);
         }
+        waLog::log('Обработка завершена (cron)', $this::FILE_LOG);
     }
 }
