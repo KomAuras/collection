@@ -74,7 +74,7 @@
 	</textarea>
         </p>
 
-        <p>Следующий код нужно вставить в страницу в точку вывода значения характеристики
+        <p>Следующий код нужно вставить в страницу в точку вывода значения характеристики. Файл: product.html</p>
             <b>{literal}{$f_value}{/literal}</b></p>
 
         <p>
@@ -88,6 +88,54 @@
 {/if}{/literal}
 <!-- Вставьте код здесь -->
 	</textarea>
+        </p>
+        <p>Следующий код нужно вставить в страницу в точку вывода списка товара из комплекта. Обычно это код перед
+            характеристиками. Файл: product.html</p>
+        <p>
+    <textarea rows="14" cols="100">
+&nbsp;
+<!-- Вставьте код здесь -->
+{literal}{if !$wa->get('quick_view') && class_exists('shopCollectionPlugin')}
+    {$complect = shopCollectionPlugin::getComplect({$product.id})}
+    {if !empty($complect)}
+    <a name="complect">
+	<div class="content_slider products_slider">
+		<div class="title h3">Товар из одного комплекта</div>
+        {include file="products-list.html" products=$complect compact=true catalog_view="slider"}
+	</div>
+	{/if}
+{/if}{/literal}
+<!-- Вставьте код здесь -->
+	</textarea>
+        </p>
+        <p>Следующий код можно вставить внизу, после вывода характеристик. Это отображение ссылки на блок с комплектыми товарами. Файл: product.cart.html</p>
+        <p>
+    <textarea rows="10" cols="100">
+&nbsp;
+<!-- Вставьте код здесь -->
+{literal}{if !$wa->get('quick_view') && class_exists('shopCollectionPlugin')}
+    {$complect = shopCollectionPlugin::getComplect({$product.id})}
+    {if !empty($complect)}
+    <a class="complect_me" href="#complect">Посмотреть комплект</a>
+    {/if}
+{/if}{/literal}
+<!-- Вставьте код здесь -->
+	</textarea>
+        </p>
+        <p>И кусочек для стиля Файл: ыshop.css</p>
+        <p>
+    <textarea rows="11" cols="100">
+&nbsp;
+.complect_me {
+  font-size: 13px;
+  border-bottom: 1px dotted;
+  text-decoration: none;
+}
+
+.complect_me:hover {
+  text-decoration: none;
+}
+    </textarea>
         </p>
     </div>
 
