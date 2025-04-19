@@ -47,8 +47,16 @@ class shopCollectionPlugin extends shopPlugin
         // возвращаем товар по такому поставщику с таким значением характеристики комплект
         $collection = new shopProductsCollection('search/' . $provider_feature_name . '=' . $provider_feature_value . '%26' . $complect_feature_name . '=' . $complect_feature_value);
         $data = $collection->getProducts('*,skus_filtered');
-        if (count($data) > 0) {
-            return $data;
+
+        $newData = [];
+        foreach ($data as $key => $product) {
+            if ($key == $product_id)
+                continue;
+            $newData[$key] = $product;
+        }
+
+        if (count($newData) > 0) {
+            return $newData;
         }
         return [];
     }
