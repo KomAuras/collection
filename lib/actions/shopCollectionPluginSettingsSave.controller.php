@@ -9,6 +9,7 @@ class shopCollectionPluginSettingsSaveController extends waJsonController
 
             $settings = array(
                 'provider_feature_id' => $post['provider_feature_id'],
+                'complect_feature_id' => $post['complect_feature_id'],
                 'collection_feature_id' => $post['collection_feature_id'],
                 'parent_category_id' => $post['parent_category_id'],
             );

@@ -6,6 +6,11 @@ return array(
         'value' => 0,
         'control_type' => waHtmlControl::INPUT,
     ),
+    'complect_feature_id' => array(
+        'title' => 'ID характеристки Комплект',
+        'value' => 0,
+        'control_type' => waHtmlControl::INPUT,
+    ),
     'collection_feature_id' => array(
         'title' => 'ID характеристки Коллекция',
         'value' => 0,

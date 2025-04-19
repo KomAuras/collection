@@ -14,4 +14,42 @@ class shopCollectionPlugin extends shopPlugin
         }
         return $feature_value;
     }
+
+    public static function getComplect($product_id)
+    {
+        // получаем коды характеристик
+        $settings = wa('shop')->getPlugin('collection')->getSettings();
+        $complect_feature_id = $settings['complect_feature_id'];
+        $provider_feature_id = $settings['provider_feature_id'];
+
+        // получаем их имя
+        $model = new shopFeatureModel();
+        $data = $model->getByField('id', $complect_feature_id, true);
+        if (!isset($data[0]['code']))
+            return "";
+        $complect_feature_name = $data[0]['code'];
+
+        $data = $model->getByField('id', $provider_feature_id, true);
+        if (!isset($data[0]['code']))
+            return "";
+        $provider_feature_name = $data[0]['code'];
+
+        // получаем из товара значения характеристик
+        $model = new shopProductFeaturesModel();
+        $data = $model->getValues($product_id);
+        if (!isset($data[$complect_feature_name]))
+            return "";
+        $complect_feature_value = $data[$complect_feature_name];
+        if (!isset($data[$provider_feature_name]))
+            return "";
+        $provider_feature_value = $data[$provider_feature_name];
+
+        // возвращаем товар по такому поставщику с таким значением характеристики комплект
+        $collection = new shopProductsCollection('search/' . $provider_feature_name . '=' . $provider_feature_value . '%26' . $complect_feature_name . '=' . $complect_feature_value);
+        $data = $collection->getProducts('*,skus_filtered');
+        if (count($data) > 0) {
+            return $data;
+        }
+        return [];
+    }
 }

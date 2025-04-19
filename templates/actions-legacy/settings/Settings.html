@@ -28,6 +28,14 @@
     </div>
 
     <div class="field">
+        <div class="name">ID характеристки Комплект</div>
+        <div class="value">
+            <input type="text" name="settings[complect_feature_id]"
+                   value="{$settings.complect_feature_id|escape}"/><br/><br/>
+        </div>
+    </div>
+
+    <div class="field">
         <div class="name">ID характеристки Коллекция</div>
         <div class="value">
             <input type="text" name="settings[collection_feature_id]"
@@ -81,6 +89,25 @@
 <!-- Вставьте код здесь -->
 	</textarea>
         </p>
+        <p>Следующий код нужно вставить в страницу в точку вывода списка товара из комплекта. Обычно это код перед
+            характеристиками.</p>
+        <p>
+    <textarea rows="13" cols="100">
+&nbsp;
+<!-- Вставьте код здесь -->
+{literal}{if class_exists('shopCollectionPlugin')}
+    {$complect = shopCollectionPlugin::getComplect({$product.id})}
+    {if !empty($complect)}
+    <div class="content_slider products_slider">
+        <div class="title h3">Товар из одного комплекта</div>
+        {include file="products-list.html" products=$complect compact=true catalog_view="slider"}
+    </div>
+    {/if}
+{/if}{/literal}
+<!-- Вставьте код здесь -->
+	</textarea>
+        </p>
+
     </div>
 
 </form>
